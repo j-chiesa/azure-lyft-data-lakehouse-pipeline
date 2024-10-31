@@ -16,6 +16,8 @@ This project entails building a robust data pipeline for processing hypothetical
 8. [Notes and Credits](#notes-and-credits)
 
 ### Architecture 
+This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
+![Architecture](./assets/architecture.png)
 
 ### Components
 
