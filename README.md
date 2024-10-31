@@ -20,7 +20,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 ![Architecture](./assets/architecture-diagram.png)
 
 ### Components
-- *Orchestatrion:* Azure Data Factory is used to extract data from the website and load it into Azure Data Lake Storage Gen2. Additionally, it orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
+- **Orchestatrion:** Azure Data Factory is used to extract data from the website and load it into Azure Data Lake Storage Gen2. Additionally, it orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
 
 ### Data Model
 
