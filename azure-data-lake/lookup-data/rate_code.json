@@ -1,0 +1,10 @@
+[
+    { "id": 1, "type": "Standard rate" },
+    { "id": 2, "type": "JFK" },
+    { "id": 3, "type": "Newark" },
+    { "id": 4, "type": "Nassau or Westchester" },
+    { "id": 5, "type": "Negotiated fare" },
+    { "id": 6, "type": "Group ride" },
+    { "id": 7, "type": "Unknown" }
+]
+  

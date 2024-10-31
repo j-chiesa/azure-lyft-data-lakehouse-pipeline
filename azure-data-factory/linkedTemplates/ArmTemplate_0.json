@@ -1,0 +1,416 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "adf-lyft-dev-weu"
+        },
+        "ls_adls_dev_accountKey": {
+            "type": "secureString",
+            "metadata": "Secure string for 'accountKey' of 'ls_adls_dev'"
+        },
+        "ls_kv_lyft_properties_typeProperties_baseUrl": {
+            "type": "string",
+            "defaultValue": "https://kv-lyft-dev-weu.vault.azure.net/"
+        },
+        "ls_adls_dev_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://stlyftdevweu.dfs.core.windows.net/"
+        },
+        "ls_http_dev_properties_typeProperties_url": {
+            "type": "string",
+            "defaultValue": "https://d37ci6vzurychx.cloudfront.net/trip-data/"
+        },
+        "ls_adb_lyft_dev_properties_typeProperties_existingClusterId": {
+            "type": "string",
+            "defaultValue": "1027-015031-x8cvi1x9"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/ls_kv_lyft')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureKeyVault",
+                "typeProperties": {
+                    "baseUrl": "[parameters('ls_kv_lyft_properties_typeProperties_baseUrl')]"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ls_adls_dev')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureBlobFS",
+                "typeProperties": {
+                    "url": "[parameters('ls_adls_dev_properties_typeProperties_url')]",
+                    "accountKey": {
+                        "type": "SecureString",
+                        "value": "[parameters('ls_adls_dev_accountKey')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ls_http_dev')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "HttpServer",
+                "typeProperties": {
+                    "url": "[parameters('ls_http_dev_properties_typeProperties_url')]",
+                    "enableServerCertificateValidation": true,
+                    "authenticationType": "Anonymous"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ds_lyft_adls')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "ls_adls_dev",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Year": {
+                        "type": "string"
+                    },
+                    "Month": {
+                        "type": "string"
+                    }
+                },
+                "annotations": [],
+                "type": "Parquet",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobFSLocation",
+                        "folderPath": {
+                            "value": "@concat('parquet_data/PartitionYear=', dataset().Year, '/PartitionMonth=', dataset().Month)",
+                            "type": "Expression"
+                        },
+                        "fileSystem": "bronze"
+                    },
+                    "compressionCodec": "snappy"
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ls_adls_dev')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ds_lyft_source')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "ls_http_dev",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "Year": {
+                        "type": "string",
+                        "defaultValue": "@formatDateTime(addToTime(utcnow(), -2, 'Month'), 'yyyy')"
+                    },
+                    "Month": {
+                        "type": "string",
+                        "defaultValue": "@formatDateTime(addToTime(utcnow(), -2, 'Month'), 'MM')"
+                    }
+                },
+                "annotations": [],
+                "type": "Parquet",
+                "typeProperties": {
+                    "location": {
+                        "type": "HttpServerLocation",
+                        "relativeUrl": {
+                            "value": "@concat('yellow_tripdata_', dataset().Year, '-', dataset().Month, '.parquet')",
+                            "type": "Expression"
+                        }
+                    },
+                    "compressionCodec": "snappy"
+                },
+                "schema": []
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ls_http_dev')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/ls_adb_lyft_dev')]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "annotations": [],
+                "type": "AzureDatabricks",
+                "typeProperties": {
+                    "domain": "https://adb-123628658002027.7.azuredatabricks.net",
+                    "accessToken": {
+                        "type": "AzureKeyVaultSecret",
+                        "store": {
+                            "referenceName": "ls_kv_lyft",
+                            "type": "LinkedServiceReference"
+                        },
+                        "secretName": "adb-lyft-secret"
+                    },
+                    "existingClusterId": "[parameters('ls_adb_lyft_dev_properties_typeProperties_existingClusterId')]"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ls_kv_lyft')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/pl_lyft_data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Bronze To Silver",
+                        "type": "DatabricksNotebook",
+                        "dependsOn": [
+                            {
+                                "activity": "Parquet To Delta",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "notebookPath": "/Shared/lyft-bronze-silver",
+                            "baseParameters": {
+                                "PipelineRunID": {
+                                    "value": "@pipeline().RunId",
+                                    "type": "Expression"
+                                },
+                                "Year": {
+                                    "value": "@formatDateTime(variables('Date'), 'yyyy')",
+                                    "type": "Expression"
+                                },
+                                "Month": {
+                                    "value": "@if(equals(formatDateTime(variables('Date'), 'MM'), '01'), '1',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '02'), '2',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '03'), '3',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '04'), '4',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '05'), '5',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '06'), '6',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '07'), '7',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '08'), '8',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '09'), '9',\n    formatDateTime(variables('Date'), 'MM'))))))))))",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "ls_adb_lyft_dev",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Silver To Gold",
+                        "type": "DatabricksNotebook",
+                        "dependsOn": [
+                            {
+                                "activity": "Bronze To Silver",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "notebookPath": "/Shared/lyft-silver-gold",
+                            "baseParameters": {
+                                "Year": {
+                                    "value": "@formatDateTime(variables('Date'), 'yyyy')",
+                                    "type": "Expression"
+                                },
+                                "Month": {
+                                    "value": "@if(equals(formatDateTime(variables('Date'), 'MM'), '01'), '1',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '02'), '2',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '03'), '3',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '04'), '4',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '05'), '5',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '06'), '6',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '07'), '7',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '08'), '8',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '09'), '9',\n    formatDateTime(variables('Date'), 'MM'))))))))))",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "ls_adb_lyft_dev",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Extract Trip Data",
+                        "type": "Copy",
+                        "dependsOn": [
+                            {
+                                "activity": "Set Date",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "source": {
+                                "type": "ParquetSource",
+                                "storeSettings": {
+                                    "type": "HttpReadSettings",
+                                    "requestMethod": "GET"
+                                },
+                                "formatSettings": {
+                                    "type": "ParquetReadSettings"
+                                }
+                            },
+                            "sink": {
+                                "type": "ParquetSink",
+                                "storeSettings": {
+                                    "type": "AzureBlobFSWriteSettings"
+                                },
+                                "formatSettings": {
+                                    "type": "ParquetWriteSettings"
+                                }
+                            },
+                            "enableStaging": false,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "typeConversion": true,
+                                "typeConversionSettings": {
+                                    "allowDataTruncation": true,
+                                    "treatBooleanAsNumber": false
+                                }
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "ds_lyft_source",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "Year": {
+                                        "value": "@formatDateTime(variables('Date'), 'yyyy')",
+                                        "type": "Expression"
+                                    },
+                                    "Month": {
+                                        "value": "@formatDateTime(variables('Date'), 'MM')",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "ds_lyft_adls",
+                                "type": "DatasetReference",
+                                "parameters": {
+                                    "Year": {
+                                        "value": "@formatDateTime(variables('Date'), 'yyyy')",
+                                        "type": "Expression"
+                                    },
+                                    "Month": {
+                                        "value": "@if(equals(formatDateTime(variables('Date'), 'MM'), '01'), '1',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '02'), '2',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '03'), '3',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '04'), '4',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '05'), '5',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '06'), '6',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '07'), '7',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '08'), '8',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '09'), '9',\n    formatDateTime(variables('Date'), 'MM'))))))))))",
+                                        "type": "Expression"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Set Date",
+                        "type": "SetVariable",
+                        "dependsOn": [],
+                        "policy": {
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "variableName": "Date",
+                            "value": {
+                                "value": "@addToTime(utcnow(), -2, 'Month')",
+                                "type": "Expression"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Parquet To Delta",
+                        "type": "DatabricksNotebook",
+                        "dependsOn": [
+                            {
+                                "activity": "Extract Trip Data",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "0.12:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false,
+                            "secureInput": false
+                        },
+                        "userProperties": [],
+                        "typeProperties": {
+                            "notebookPath": "/Shared/lyft-parquet-delta",
+                            "baseParameters": {
+                                "Year": {
+                                    "value": "@formatDateTime(variables('Date'), 'yyyy')",
+                                    "type": "Expression"
+                                },
+                                "Month": {
+                                    "value": "@if(equals(formatDateTime(variables('Date'), 'MM'), '01'), '1',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '02'), '2',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '03'), '3',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '04'), '4',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '05'), '5',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '06'), '6',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '07'), '7',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '08'), '8',\n    if(equals(formatDateTime(variables('Date'), 'MM'), '09'), '9',\n    formatDateTime(variables('Date'), 'MM'))))))))))",
+                                    "type": "Expression"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "ls_adb_lyft_dev",
+                            "type": "LinkedServiceReference"
+                        }
+                    }
+                ],
+                "policy": {
+                    "elapsedTimeMetric": {}
+                },
+                "variables": {
+                    "Date": {
+                        "type": "String"
+                    }
+                },
+                "annotations": [],
+                "lastPublishTime": "2024-10-30T23:14:57Z"
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/ls_adb_lyft_dev')]",
+                "[concat(variables('factoryId'), '/datasets/ds_lyft_source')]",
+                "[concat(variables('factoryId'), '/datasets/ds_lyft_adls')]"
+            ]
+        }
+    ]
+}

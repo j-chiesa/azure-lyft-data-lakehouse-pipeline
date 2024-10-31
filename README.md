@@ -17,7 +17,7 @@ This project focuses on creating a scalable data pipeline to process and analyze
 
 ### Architecture 
 This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
-![Architecture](./assets/architecture-diagram.png)
+<img src="./images/architecture-diagram.png" alt="Architecture">
 
 ### Components
 - **Orchestatrion:** Azure Data Factory is used to extract data from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
@@ -32,23 +32,20 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
-![Star Schema Model](./assets/star-schema-model.png)
-<img src="./assets/star-schema-model.png" alt="Star Schema Mode" width="1500">
-
+<img src="./images/star-schema-model.png" alt="Star Schema Mode" width="1000">
 
 ### Implementation
-1. **Azure Data Factory:** Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/data-factory-pipeline) directory.
+1. **Azure Data Factory:** Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
    - *Set Date:* Since the latest data is from two months prior, a variable is set to specify the date of the most recent dataset using the `@addToTime(utcnow(), -2, 'Month')` expression.
      
    - *Extract Trip Data:* Retrieves the data from the NYC TLC website using the previously defined date variable. The data is stored in a designated directory for raw data within the bronze container in Azure Data Lake.
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
 
-  <img src="./assets/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="1500">
+  <img src="./assets/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="1800">
    
-2. **Azure Data Lake Storage Gen2:** For an overview of the Data/Delta Lake, please refer to the    directory
-   - *Parquet To Delta:* Azure Databricks notebooks that creates a Delta Lake within the bronze layer with the raw data.
-   - *Bronze To Silver:* First transformation layer.
+2. **Azure Data Lake Storage Gen2:** For an overview of the Delta Lake, please refer to the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake)   directory
+
 
 ### Visualization
 

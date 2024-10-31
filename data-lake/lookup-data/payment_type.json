@@ -1,9 +1,0 @@
-[
-    { "id": 1, "type": "Credit card" },
-    { "id": 2, "type": "Cash" },
-    { "id": 3, "type": "No charge" },
-    { "id": 4, "type": "Dispute" },
-    { "id": 5, "type": "Negotiated fare" },
-    { "id": 6, "type": "Voided Trip" },
-    { "id": 7, "type": "Unknown" }
-]
