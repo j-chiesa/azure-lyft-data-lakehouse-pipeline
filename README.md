@@ -37,6 +37,14 @@ The final model in the Gold layer follows a star schema, which facilitates fast 
    <img src="./images/star-schema-model.png" alt="Star Schema Mode" style="max-width: 100%; height: auto;">
 </div>
 
+<div style="text-align: center;">
+  <img src="./images/star-schema-model.png" alt="Descripción de la imagen" width="500">
+</div>
+
+
+![Descripción de la imagen](./images/star-schema-model.png){: style="display: block; margin-left: auto; margin-right: auto;" }
+
+
 ## Implementation
 ### Azure Data Factory
 Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
