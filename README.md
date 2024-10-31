@@ -32,7 +32,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
-<img src="./images/star-schema-model.png" alt="Star Schema Mode" width="800">
+<img src="./images/star-schema-model.png" alt="Star Schema Mode" width="400">
 
 ### Implementation
 1. **Azure Data Factory:** Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
@@ -41,13 +41,13 @@ The final model in the Gold layer follows a star schema, which facilitates fast 
    - *Extract Trip Data:* Retrieves the data from the NYC TLC website using the previously defined date variable. The data is stored in a designated directory for raw data within the bronze container in Azure Data Lake.
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
+<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2000">
+   
+2. **Azure Data Lake Storage Gen2:** For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
+   
+3. **Azure Databricks:** The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
-  <img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="1800">
-   
-2. **Azure Data Lake Storage Gen2:** For an overview of the Delta Lake and access of all the files, please refer to the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
-   
-3. **Azure Databricks:**
-[View interactive documentation](./azure-databricks/html/lyft-bronze-silver.html)
+4. **Azure Synapse Analytics:** 
 
 
 ### Notes and Credits
