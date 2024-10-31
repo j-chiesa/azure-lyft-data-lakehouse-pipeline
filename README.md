@@ -1,3 +1,7 @@
 # Lyft Data Lakehouse Pipeline
-![Architecture diagram](./assets/architecture-diagram.png)
+WRITE HERE THE OBJECTIVE OF THE PROJECT IN GENERAL TERMS.
 
+### 📑 Table of Contents
+1. [Architecture](#architecture)
+
+# Architecture 
