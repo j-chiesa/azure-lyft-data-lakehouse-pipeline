@@ -32,7 +32,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
  
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
-![Data Model](./assets/data-model.png)
+![Star Schema Model](./assets/star-schema-model.png)
 
 ### Implementation
 
