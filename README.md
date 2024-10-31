@@ -1,5 +1,5 @@
 # Lyft Data Lakehouse Pipeline
-This project entails building a robust data pipeline for processing hypothetical Lyft trip data. It retrieves a `.parquet` file containing trip data from the previous two months from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) web page and loads it into Azure Data Lake Storage Gen2. The data is then processed using a medallion architecture within Azure Databricks (Spark), creating a Delta Lake for each layer (Bronze, Silver, and Gold). This structured data is subsequently leveraged to establish a Delta Lakehouse in a serverless SQL pool within Azure Synapse Analytics. Finally, Power BI connects to the Gold layer in Synapse, allowing for insightful visualizations that facilitate data-driven decision-making.
+This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
 
 ## 📑 Table of Contents
 1. [Architecture](#architecture)
@@ -20,7 +20,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 ![Architecture](./assets/architecture-diagram.png)
 
 ### Components
-- **Orchestatrion:** Azure Data Factory is used to extract data from the website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
+- **Orchestatrion:** Azure Data Factory is used to extract data from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
   
 - **Storage:** The data is initially stored in Azure Data Lake Storage Gen2, which is then converted into a Delta Lake in the Bronze layer. Each layer (Bronze, Silver, and Gold) has its own partitioning structure by year and month, enabling efficient data management and retrieval.
   
@@ -31,8 +31,11 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
  
 ### Data Model
+The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
+![Data Model](./assets/data-model.png)
 
 ### Implementation
+
 
 ### Visualization
 
