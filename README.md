@@ -43,23 +43,25 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
    - *Extract Trip Data:* Retrieves the data from the NYC TLC website using the previously defined date variable. The data is stored in a designated directory for raw data within the bronze container in Azure Data Lake.
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
-     
-<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
+
+<div style="text-align: center;">
+   <img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
+</div>
    
 ### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
-<img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="1500">
+<img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="500">
    
 ### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
-<img src="./images/azure-databricks.png" alt="Azure Databricks" width="1000">
+<img src="./images/azure-databricks.png" alt="Azure Databricks" width="500">
 
 ### Azure Synapse Analytics
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
-<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1000">
+<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="500">
    
 ### Power BI
 
