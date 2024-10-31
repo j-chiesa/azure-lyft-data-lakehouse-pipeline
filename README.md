@@ -15,12 +15,12 @@ This project focuses on creating a scalable data pipeline to process and analyze
 7. [Visualization](#visualization)
 8. [Notes and Credits](#notes-and-credits)
 
-### Architecture 
+## Architecture 
 This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
 
 <img src="./images/architecture-diagram.png" alt="Architecture">
 
-### Components
+## Components
 - **Orchestatrion:** Azure Data Factory is used to extract data from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
   
 - **Storage:** The data is initially stored in Azure Data Lake Storage Gen2, which is then converted into a Delta Lake in the Bronze layer. Each layer (Bronze, Silver, and Gold) has its own partitioning structure by year and month, enabling efficient data management and retrieval.
@@ -31,13 +31,13 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
   
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
 
-### Data Model
+## Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 
 <img src="./images/star-schema-model.png" alt="Star Schema Mode" width="600">
 
-### Implementation
-1. **Azure Data Factory**
+## Implementation
+### **Azure Data Factory**
 Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
    - *Set Date:* Since the latest data is from two months prior, a variable is set to specify the date of the most recent dataset using the `@addToTime(utcnow(), -2, 'Month')` expression.
      
@@ -47,18 +47,20 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
 <img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
    
-2. **Azure Data Lake Storage Gen2**
+### **Azure Data Lake Storage Gen2**
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
 <img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1500">
    
-4. **Azure Databricks**
+### **Azure Databricks**
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
-6. **Azure Synapse Analytics:**
+<img src="./images/azure-databricks.png" alt="Azure Databricks" width="1000">
+
+### **Azure Synapse Analytics:**
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
-<img src="./images/azure-data-lake.png" alt="Azure Data Lake" width="1000">
+<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1000">
    
 8. **Power BI:** 
 
