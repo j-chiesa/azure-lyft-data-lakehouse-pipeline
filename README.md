@@ -52,9 +52,7 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
 ### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
-<div style="text-align: center;">
- <img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="500">
-</div>
+<div style="text-align: center;"><img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="500"></div>
 
 ### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
