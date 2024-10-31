@@ -30,13 +30,12 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
   
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
 
- 
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 ![Star Schema Model](./assets/star-schema-model.png)
 
 ### Implementation
-
+1. **Orchestration:** 
 
 ### Visualization
 
