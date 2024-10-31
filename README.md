@@ -20,7 +20,9 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 ![Architecture](./assets/architecture-diagram.png)
 
 ### Components
-- **Orchestatrion:** Azure Data Factory is used to extract data from the website and load it into Azure Data Lake Storage Gen2. Additionally, it orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
+- **Orchestatrion:** Azure Data Factory is used to extract data from the website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
+- **Storage:** The data is initially stored in Azure Data Lake Storage Gen2, which is then converted into a Delta Lake in the Bronze layer. Each layer (Bronze, Silver, and Gold) has its own partitioning structure by year and month, enabling efficient data management and retrieval.
+- **Transformation**:
 
 ### Data Model
 
