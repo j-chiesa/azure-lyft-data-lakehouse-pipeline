@@ -37,7 +37,7 @@ The final model in the Gold layer follows a star schema, which facilitates fast 
 <img src="./images/star-schema-model.png" alt="Star Schema Mode" width="600">
 
 ## Implementation
-### **Azure Data Factory**
+### Azure Data Factory
 Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
    - *Set Date:* Since the latest data is from two months prior, a variable is set to specify the date of the most recent dataset using the `@addToTime(utcnow(), -2, 'Month')` expression.
      
@@ -47,22 +47,22 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
 <img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
    
-### **Azure Data Lake Storage Gen2**
+### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
-<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1500">
+<img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="1500">
    
-### **Azure Databricks**
+### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
 <img src="./images/azure-databricks.png" alt="Azure Databricks" width="1000">
 
-### **Azure Synapse Analytics:**
+### Azure Synapse Analytics
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
 <img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1000">
    
-8. **Power BI:** 
+### Power BI
 
 
-### Notes and Credits
+## Notes and Credits
