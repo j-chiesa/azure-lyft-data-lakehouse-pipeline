@@ -33,6 +33,8 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 ![Star Schema Model](./assets/star-schema-model.png)
+<img src="./assets/star-schema-model.png" alt="Star Schema Mode" width="500" height="300">
+
 
 ### Implementation
 1. **Azure Data Factory:** Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/data-factory-pipeline) directory.
