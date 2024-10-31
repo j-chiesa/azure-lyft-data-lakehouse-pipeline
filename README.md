@@ -34,7 +34,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 ### Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 
-<img src="./images/star-schema-model.png" alt="Star Schema Mode" width="800">
+<img src="./images/star-schema-model.png" alt="Star Schema Mode" width="600">
 
 ### Implementation
 1. **Azure Data Factory**
@@ -45,18 +45,20 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
      
-<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2000">
+<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
    
 2. **Azure Data Lake Storage Gen2**
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
+
+<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="1500">
    
-3. **Azure Databricks**
+4. **Azure Databricks**
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
 6. **Azure Synapse Analytics:**
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
-<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="2000">
+<img src="./images/azure-data-lake.png" alt="Azure Data Lake" width="1000">
    
 8. **Power BI:** 
 
