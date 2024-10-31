@@ -35,7 +35,14 @@ The final model in the Gold layer follows a star schema, which facilitates fast 
 ![Star Schema Model](./assets/star-schema-model.png)
 
 ### Implementation
-1. **Orchestration:** 
+1. **Azure Data Factory:** Orchestrates the extract, load and transform process (ELT) in five activities shortly explaiined below. For technical details please refer to the :
+   - *Set Date:* Since the latest data is from two months prior, a variable is set to specify the date of the most recent dataset using the `@addToTime(utcnow(), -2, 'Month')` expression.
+   - *Extract Trip Data:*Retrieves the data from the NYC TLC website using the previously defined date variable. The data is stored in a designated directory for raw data within the bronze container in Azure Data Lake.
+   - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
+   
+3.     
+   - *Parquet To Delta:* Azure Databricks notebooks that creates a Delta Lake within the bronze layer with the raw data.
+   - *Bronze To Silver:* First transformation layer.
 
 ### Visualization
 
