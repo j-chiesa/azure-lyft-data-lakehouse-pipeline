@@ -9,8 +9,7 @@
    - [Azure Databricks](#azure-databricks-configuration)
    - [Azure Synapse Analytics](#azure-synapse-analytics-configuration)
    - [Power BI](#power-bi-configuration)
-7. [Visualization](#visualization)
-8. [Notes and Credits](#notes-and-credits)
+6. [Notes and Credits](#notes-and-credits)
 
 # Lyft Data Lakehouse Pipeline
 This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
