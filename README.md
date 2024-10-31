@@ -1,5 +1,5 @@
 # Lyft Data Lakehouse Pipeline
-WRITE HERE THE OBJECTIVE OF THE PROJECT IN GENERAL TERMS.
+This project entails building a robust data pipeline for processing hypothetical Lyft trip data. It retrieves a `.parquet` file containing trip data from the previous two months from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) web page and loads it into Azure Data Lake Storage Gen2. The data is then processed using a medallion architecture within Azure Databricks (Spark), creating a Delta Lake for each layer (Bronze, Silver, and Gold). This structured data is subsequently leveraged to establish a Delta Lakehouse in a serverless SQL pool within Azure Synapse Analytics. Finally, Power BI connects to the Gold layer in Synapse, allowing for insightful visualizations that facilitate data-driven decision-making.
 
 ## 📑 Table of Contents
 1. [Architecture](#architecture)
