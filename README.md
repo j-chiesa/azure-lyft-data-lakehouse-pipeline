@@ -1,9 +1,9 @@
-## Table of Contents
-1. [Lyft Data Lakehouse Pipeline](#lyft-data-lakehouse-pipeline)
-2. [Architecture](#architecture)
-3. [Data Model](#data-model)
-4. [Implementation](#implementation)
-5. [Notes and Credits](#notes-and-credits)
+## Content
+- [Lyft Data Lakehouse Pipeline](#lyft-data-lakehouse-pipeline)
+- [Architecture](#architecture)
+- [Data Model](#data-model)
+- [Implementation](#implementation)
+- [Notes and Credits](#notes-and-credits)
    
 <br>
 
