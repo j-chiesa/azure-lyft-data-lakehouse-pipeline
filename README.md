@@ -77,4 +77,5 @@ A Power BI report was created to display data from the Gold layer, retrieved in 
 
 <br>
 
-## Notes and Credits
+## Note
+The data used in this project was originally sourced from the [New York City Taxi and Limousine Commission (NYC TLC)](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page). To enhance creativity and align with the theme of this visualization, we have chosen to represent the data is coming from Lyft. This change is intended purely for illustrative purposes and does not reflect actual Lyft trip data.
