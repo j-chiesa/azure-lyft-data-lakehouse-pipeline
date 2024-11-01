@@ -3,7 +3,7 @@
 - [Architecture](#architecture)
 - [Data Model](#data-model)
 - [Implementation](#implementation)
-- [Notes and Credits](#notes-and-credits)
+- [Note](#note)
    
 <br>
 
