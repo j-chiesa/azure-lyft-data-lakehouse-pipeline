@@ -10,9 +10,7 @@
 # Lyft Data Lakehouse Pipeline
 This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
 
-<img src="./images/lyft-logo.png" alt="Lyft Logo" width="100%">
-
-<br>
+<img src="./images/lyft-logo.png" alt="Lyft Logo" >
 
 ## Architecture 
 This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
