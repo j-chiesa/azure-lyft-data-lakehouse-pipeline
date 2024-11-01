@@ -38,7 +38,7 @@ The final model in the Gold layer follows a star schema, which facilitates fast 
 
 ## Implementation
 ### Azure Data Factory
-Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [data-factory-pipeline](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
+Orchestrates the extract, load, and transform (ELT) process in five key activities, briefly explained below. For more technical details, please refer to the [Azure Data Factory](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
    - *Set Date:* Since the latest data is from two months prior, a variable is set to specify the date of the most recent dataset using the `@addToTime(utcnow(), -2, 'Month')` expression.
      
    - *Extract Trip Data:* Retrieves the data from the NYC TLC website using the previously defined date variable. The data is stored in a designated directory for raw data within the bronze container in Azure Data Lake.
@@ -50,28 +50,28 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
 <br>
    
 ### Azure Data Lake Storage Gen2
-For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
+For an overview of Delta Lake and access to all files, please see the [Azure Data Lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
 <img src="./images/azure-data-lake.gif" alt="Azure Data Lake" width="100%">
 
 <br>
 
 ### Azure Databricks
-The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
+The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [Azure Databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
 <img src="./images/azure-databricks.gif" alt="Azure Databricks" width="100%">
 
 <br>
 
 ### Azure Synapse Analytics
-In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
+In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the views, please refer to the [Azure Synapse Analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-synapse-analytics) directory.
 
 <img src="./images/azure-synapse-analytics.gif" alt="Azure Synapse Analytics" width="100%">
 
 <br>
    
 ### Power BI
-A Power BI report was created to display data from the Gold layer, retrieved in import mode from Azure Synapse Analytics. To download the report, please visit the [power-bi](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/power-bi) directory. Due to GitHub's size constraint, the available data only goes up to July 2024.
+A Power BI report was created to display data from the Gold layer, retrieved in import mode from Azure Synapse Analytics. To download the report, please visit the [Power BI](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/power-bi) directory. Due to GitHub's size constraints, the uploaded Power BI file includes only data for August 2024.
 
 <img src="./images/power-bi.gif" alt="Power BI" width="100%">
 
