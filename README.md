@@ -3,17 +3,14 @@
 2. [Architecture](#architecture)
 3. [Data Model](#data-model)
 4. [Implementation](#implementation)
-   - [Azure Data Factory](#azure-data-factory-configuration)
-   - [Azure Data Lake Storage Gen2](#azure-data-lake-storage-gen2-configuration)
-   - [Azure Databricks](#azure-databricks-configuration)
-   - [Azure Synapse Analytics](#azure-synapse-analytics-configuration)
-   - [Power BI](#power-bi-configuration)
-6. [Notes and Credits](#notes-and-credits)
+5. [Notes and Credits](#notes-and-credits)
    
 <br>
 
 # Lyft Data Lakehouse Pipeline
 This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
+
+<img src="./images/lyft-logo.png" alt="Lyft Logo" width="100%">
 
 <br>
 
