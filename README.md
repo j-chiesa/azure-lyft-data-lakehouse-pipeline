@@ -1,4 +1,4 @@
-# 📑 Table of Contents
+## 📑 Table of Contents
 1. [Lyft Data Lakehouse Pipeline](#lyft-data-lakehouse-pipeline)
 2. [Architecture](#architecture)
 3. [Data Model](#data-model)
