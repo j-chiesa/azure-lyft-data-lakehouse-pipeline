@@ -53,14 +53,16 @@ For an overview of Delta Lake and access to all files, please see the [azure-dat
 ### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
-<img src="./images/azure-databricks.png" alt="Azure Databricks" width="500">
+<img src="./images/azure-databricks.gif" alt="Azure Databricks" width="100%">
 
 ### Azure Synapse Analytics
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
-<img src="./images/azure-synapse-analytics.png" alt="Azure Synapse Analytics" width="500">
+<img src="./images/azure-synapse-analytics.gif" alt="Azure Synapse Analytics" width="100%">
    
 ### Power BI
+A Power BI report was created to display data from the Gold layer, retrieved in import mode from Azure Synapse Analytics. To download the report, please visit the [power-bi](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/power-bi) directory. Due to GitHub's size constraint, the available data only goes up to July 2024.
 
+<img src="./images/power-bi.gif" alt="Power BI" width="100%">
 
 ## Notes and Credits
