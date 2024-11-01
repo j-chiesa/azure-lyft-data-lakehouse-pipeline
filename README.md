@@ -43,8 +43,7 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
 
-<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
-
+<img src="./images/azure-data-factory.gif" alt="Azure Data Factory Pipeline" width="1080">
    
 ### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
