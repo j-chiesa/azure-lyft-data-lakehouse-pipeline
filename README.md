@@ -17,9 +17,6 @@ This project focuses on creating a scalable data pipeline to process and analyze
 ## Architecture 
 This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
 
-<img src="./images/architecture-diagram.png" alt="Architecture">
-
-## Components
 - **Orchestatrion:** Azure Data Factory is used to extract data from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
   
 - **Storage:** The data is initially stored in Azure Data Lake Storage Gen2, which is then converted into a Delta Lake in the Bronze layer. Each layer (Bronze, Silver, and Gold) has its own partitioning structure by year and month, enabling efficient data management and retrieval.
@@ -29,6 +26,8 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 - **Data Lakehouse:** Each layer of the Delta Lake (Bronze, Silver, and Gold) is accessible through serverless SQL pools in Azure Synapse Analytics, serving as a data lakehouse. In the Gold layer, views are built for each dimension table and the fact table to support star schema queries, facilitating efficient data analysis and reporting.
   
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
+
+<img src="./images/architecture-diagram.png" alt="Architecture">
 
 ## Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
@@ -44,7 +43,7 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
 
-   <img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
+<img src="./images/adf-pipeline.png" alt="Azure Data Factory Pipeline" width="2400">
 
    
 ### Azure Data Lake Storage Gen2
