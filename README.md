@@ -27,12 +27,12 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
   
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
 
-<img src="./images/architecture-diagram.png" alt="Architecture">
+<img src="./images/architecture-diagram.png" alt="Architecture" width="100%">
 
 ## Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 
-<img src="./images/star-schema-model.png" alt="Star Schema Model" width="1920">
+<img src="./images/star-schema-model.png" alt="Star Schema Model" width="100%">
 
 ## Implementation
 ### Azure Data Factory
@@ -43,12 +43,12 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
      
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
 
-<img src="./images/azure-data-factory.gif" alt="Azure Data Factory Pipeline" width="1080">
+<img src="./images/azure-data-factory.gif" alt="Azure Data Factory" width="100%">
    
 ### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
-<div style="text-align: center;"><img src="./images/azure-data-lake.png" alt="Azure Synapse Analytics" width="500"></div>
+<img src="./images/azure-data-lake.gif" alt="Azure Data Lake" width="100%">
 
 ### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
