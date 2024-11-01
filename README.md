@@ -1,18 +1,21 @@
-## 📑 Table of Contents
-1. [Lyft Data Lakehouse Pipeline](#architecture)
-2. [Components](#components)
+# 📑 Table of Contents
+1. [Lyft Data Lakehouse Pipeline](#lyft-data-lakehouse-pipeline)
+2. [Architecture](#architecture)
 3. [Data Model](#data-model)
-4. [Processing Pipeline](#processing-pipeline)
-5. [Implementation](#implementation)
+4. [Implementation](#implementation)
    - [Azure Data Factory](#azure-data-factory-configuration)
    - [Azure Data Lake Storage Gen2](#azure-data-lake-storage-gen2-configuration)
    - [Azure Databricks](#azure-databricks-configuration)
    - [Azure Synapse Analytics](#azure-synapse-analytics-configuration)
    - [Power BI](#power-bi-configuration)
 6. [Notes and Credits](#notes-and-credits)
+   
+<br>
 
 # Lyft Data Lakehouse Pipeline
 This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
+
+<br>
 
 ## Architecture 
 This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
@@ -29,10 +32,14 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
 
 <img src="./images/architecture-diagram.png" alt="Architecture" width="100%">
 
+<br>
+
 ## Data Model
 The final model in the Gold layer follows a star schema, which facilitates fast queries and optimizes visualization in Power BI. Below is a diagram of the model structure.
 
 <img src="./images/star-schema-model.png" alt="Star Schema Model" width="100%">
+
+<br>
 
 ## Implementation
 ### Azure Data Factory
@@ -44,25 +51,35 @@ Orchestrates the extract, load, and transform (ELT) process in five key activiti
    - *Parquet To Delta, Bronze To Silver and Silver To Gold:* Executes Azure Databricks notebooks using an Apache Spark cluster to process and transform the data through each layer.
 
 <img src="./images/azure-data-factory.gif" alt="Azure Data Factory" width="100%">
+
+<br>
    
 ### Azure Data Lake Storage Gen2
 For an overview of Delta Lake and access to all files, please see the [azure-data-lake](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-lake) directory.
 
 <img src="./images/azure-data-lake.gif" alt="Azure Data Lake" width="100%">
 
+<br>
+
 ### Azure Databricks
 The Databricks notebooks contain data transformation processes implemented using PySpark. To view the Databricks notebooks, please go to the [azure-databricks](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-databricks) directory.
 
 <img src="./images/azure-databricks.gif" alt="Azure Databricks" width="100%">
 
+<br>
+
 ### Azure Synapse Analytics
 In the Synapse Analytics section, a lakehouse was created utilizing all the Delta Lakes, establishing three serverless SQL pools, one for each layer: Bronze, Silver, and Gold. For detailed queries related to creating the tables, please refer to the [azure-synapse-analytics](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/azure-data-factory) directory.
 
 <img src="./images/azure-synapse-analytics.gif" alt="Azure Synapse Analytics" width="100%">
+
+<br>
    
 ### Power BI
 A Power BI report was created to display data from the Gold layer, retrieved in import mode from Azure Synapse Analytics. To download the report, please visit the [power-bi](https://github.com/j-chiesa/lyft-data-lakehouse-pipeline/tree/main/power-bi) directory. Due to GitHub's size constraint, the available data only goes up to July 2024.
 
 <img src="./images/power-bi.gif" alt="Power BI" width="100%">
+
+<br>
 
 ## Notes and Credits
