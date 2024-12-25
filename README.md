@@ -1,13 +1,4 @@
-## Content
-- [Lyft Data Lakehouse Pipeline](#lyft-data-lakehouse-pipeline)
-- [Architecture](#architecture)
-- [Data Model](#data-model)
-- [Implementation](#implementation)
-- [Note](#note)
-   
-<br>
-
-# Lyft Data Lakehouse Pipeline
+# Azure Project: Lyft Data Lakehouse Pipeline
 This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
 
 <img src="./images/lyft-logo.png" alt="Lyft Logo" >
