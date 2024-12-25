@@ -1,10 +1,16 @@
-# Azure Project: Lyft Data Lakehouse Pipeline
-This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, securely stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations.
+# Microsoft Azure Project: Lyft Data Lakehouse Pipeline
 
 <img src="./images/lyft-logo.png" alt="Lyft Logo" >
 
+## Overview
+This project focuses on creating a scalable data pipeline to process and analyze hypothetical Lyft data from the previous two months. The pipeline ingests recent trip records, stores the data, and processes it through multiple structured layers to ensure quality and reliability. Once processed, the data is accessible for analytics and insights, supporting data-driven decision-making through dynamic visualizations. 
+
+The solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity.
+
+<img src="./images/architecture-diagram.png" alt="Architecture" width="100%">
+
 ## Architecture 
-This solution is based on the medallion architecture (Bronze, Silver, and Gold layers), optimized for cloud storage and processing using Azure. Databricks is utilized for processing the data through these layers, leveraging Delta Lake to enable efficient data management and ensure data integrity. Below is an outline of the main components:
+ Below is an outline of the main components:
 
 - **Orchestatrion:** Azure Data Factory is used to extract data from the [TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) website and load it into Azure Data Lake Storage Gen2. It sets a variable that allows for the dynamic retrieval of the file containing data from two months prior. Additionally, Data Factory orchestrates the execution of Azure Databricks notebooks, ensuring smooth processing of the data pipeline.
   
@@ -16,7 +22,7 @@ This solution is based on the medallion architecture (Bronze, Silver, and Gold l
   
 - **Visualization:** Power BI connects to the Gold layer views in Synapse to create insightful visualizations for end-users.
 
-<img src="./images/architecture-diagram.png" alt="Architecture" width="100%">
+
 
 <br>
 
